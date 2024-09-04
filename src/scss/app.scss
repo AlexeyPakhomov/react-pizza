@@ -14,6 +14,11 @@ body {
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
+
+  @media (max-width: 500px) {
+    width: calc(100vw - 20px);
+    margin: 10px auto;
+  }
 }
 
 .content {
@@ -21,18 +26,38 @@ body {
 
   &__title {
     margin: 35px 0;
+    font-size: 38px;
+    font-weight: 700;
   }
 
   &__items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    justify-items: center;
+
+    @media (max-width: 1440px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (max-width: 1060px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 750px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media (max-width: 760px) {
+      flex-direction: column;
+    }
   }
 }
 
@@ -45,6 +70,11 @@ body {
     margin: 90px auto;
     .content__title {
       margin: 0;
+    }
+
+    @media (max-width: 1000px) {
+      width: 100%;
+      margin: 45px auto;
     }
   }
 }
@@ -60,6 +90,14 @@ body {
     display: flex;
     align-items: center;
     font-size: 32px;
+
+    @media (max-width: 450px) {
+      font-size: 28px;
+    }
+
+    @media (max-width: 400px) {
+      font-size: 18px;
+    }
 
     svg {
       position: relative;
@@ -105,6 +143,10 @@ body {
     }
   }
 
+  .content__items {
+    display: block;
+  }
+
   &__item {
     display: flex;
     width: 100%;
@@ -112,15 +154,35 @@ body {
     padding-top: 30px;
     margin-top: 30px;
 
+    @media (max-width: 760px) {
+      display: grid;
+      grid-template-areas: 'img info remove' 'count price remove';
+      row-gap: 10px;
+    }
+
+    @media (max-width: 500px) {
+      grid-template-areas: 'img info info' 'count price remove';
+    }
+
     &-img {
       display: flex;
       align-items: center;
       margin-right: 15px;
       width: 10%;
 
+      @media (max-width: 760px) {
+        grid-area: img;
+        width: 100%;
+        justify-self: center;
+      }
+
       img {
         width: 80px;
         height: 80px;
+
+        @media (max-width: 760px) {
+          margin: 0 auto;
+        }
       }
     }
 
@@ -130,16 +192,33 @@ body {
       justify-content: center;
       width: 40%;
 
+      @media (max-width: 1000px) {
+        margin-left: 10px;
+      }
+
+      @media (max-width: 760px) {
+        grid-area: info;
+        width: 100%;
+      }
+
       h3 {
         font-weight: bold;
         font-size: 22px;
         line-height: 27px;
         letter-spacing: 0.01em;
+
+        @media (max-width: 760px) {
+          text-align: center;
+        }
       }
 
       p {
         font-size: 18px;
         color: #8d8d8d;
+
+        @media (max-width: 760px) {
+          text-align: center;
+        }
       }
     }
 
@@ -148,6 +227,15 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 13%;
+
+      @media (max-width: 1100px) {
+        width: 20%;
+      }
+
+      @media (max-width: 760px) {
+        grid-area: count;
+        width: 90%;
+      }
 
       &-minus {
         svg {
@@ -166,7 +254,12 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 33%;
+      width: 20%;
+
+      @media (max-width: 760px) {
+        grid-area: price;
+        width: 90%;
+      }
 
       b {
         font-weight: bold;
@@ -180,6 +273,11 @@ body {
       align-items: center;
       justify-content: flex-end;
       width: 4%;
+
+      @media (max-width: 760px) {
+        grid-area: remove;
+        width: 90%;
+      }
 
       .button {
         border-color: darken(
@@ -224,6 +322,10 @@ body {
       display: flex;
       justify-content: space-between;
 
+      @media (max-width: 550px) {
+        flex-direction: column;
+      }
+
       span {
         font-size: 22px;
 
@@ -240,11 +342,20 @@ body {
       justify-content: space-between;
       margin-top: 40px;
 
+      @media (max-width: 580px) {
+        flex-direction: column;
+        row-gap: 20px;
+      }
+
       .go-back-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 210px;
+
+        @media (max-width: 580px) {
+          width: 100%;
+        }
 
         border-color: darken(
           $color: $gray-line,
@@ -286,6 +397,10 @@ body {
         font-weight: 600;
         width: 210px;
         padding: 16px;
+
+        @media (max-width: 580px) {
+          width: 100%;
+        }
       }
     }
   }
