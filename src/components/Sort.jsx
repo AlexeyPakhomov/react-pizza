@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 
-function Sort() {
+function Sort({ activeSort, onChangeSort }) {
   const sortingOptions = [
-    'популярности',
-    'цене',
-    'алфавиту',
+    { title: 'Популярности', sortBy: 'rating', order: 'desc' },
+    { title: 'Дешевле', sortBy: 'price', order: 'asc' },
+    { title: 'Дороже', sortBy: 'price', order: 'desc' },
+    { title: 'Названию (А-Я)', sortBy: 'title', order: 'asc' },
+    { title: 'Названию (Я-А)', sortBy: 'title', order: 'desc' },
   ];
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleChangeSort = (objItem) => {
+    onChangeSort(objItem);
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="sort">
@@ -23,15 +30,18 @@ function Sort() {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setIsOpen(!isOpen)}>
-          популярности
-        </span>
+        <span onClick={() => setIsOpen(!isOpen)}>{activeSort.title}</span>
       </div>
       {isOpen && (
         <div className="sort__popup">
           <ul>
-            {sortingOptions.map((item, i) => (
-              <li key={i}>{item}</li>
+            {sortingOptions.map((objItem, i) => (
+              <li
+                key={i}
+                onClick={() => handleChangeSort(objItem)}
+                className={objItem.title === activeSort.title ? 'active' : ''}>
+                {objItem.title}
+              </li>
             ))}
           </ul>
         </div>
