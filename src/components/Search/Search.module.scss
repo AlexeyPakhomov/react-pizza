@@ -1,0 +1,49 @@
+.searchBlock {
+  position: relative;
+  width: 400px;
+
+  @media (max-width: 1180px) {
+    grid-area: search;
+    width: 100%;
+  }
+
+  &__iconFind {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    left: 10px;
+    opacity: 0.3;
+  }
+
+  &__iconRemove {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    top: 8px;
+    right: 10px;
+    opacity: 0.3;
+    transition: opacity 0.5s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px 35px;
+    transition: border 0.5s;
+
+    &:focus {
+      border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+
+    //@media (max-width: 1200px) {
+    //  width: 300px;
+    //}
+  }
+}

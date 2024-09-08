@@ -33,7 +33,6 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    //grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 10px;
     justify-items: center;
 
@@ -280,10 +279,7 @@ body {
       }
 
       .button {
-        border-color: darken(
-          $color: $gray-line,
-          $amount: 10
-        );
+        border-color: darken($color: $gray-line, $amount: 10);
       }
 
       svg {
@@ -302,14 +298,8 @@ body {
         }
         &:hover,
         &:active {
-          border-color: darken(
-            $color: $gray-line,
-            $amount: 80
-          );
-          background-color: darken(
-            $color: $gray-line,
-            $amount: 80
-          );
+          border-color: darken($color: $gray-line, $amount: 80);
+          background-color: darken($color: $gray-line, $amount: 80);
         }
       }
     }
@@ -357,10 +347,7 @@ body {
           width: 100%;
         }
 
-        border-color: darken(
-          $color: $gray-line,
-          $amount: 10
-        );
+        border-color: darken($color: $gray-line, $amount: 10);
 
         span {
           color: darken($color: $gray-line, $amount: 20);
@@ -369,14 +356,8 @@ body {
         }
 
         &:hover {
-          background-color: darken(
-            $color: $gray-line,
-            $amount: 90
-          );
-          border-color: darken(
-            $color: $gray-line,
-            $amount: 90
-          );
+          background-color: darken($color: $gray-line, $amount: 90);
+          border-color: darken($color: $gray-line, $amount: 90);
 
           span {
             color: $gray-line;

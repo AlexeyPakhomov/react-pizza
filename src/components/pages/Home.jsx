@@ -4,8 +4,10 @@ import Categories from '../Categories';
 import Sort from '../Sort';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock';
+import NotFoundPizzas from '../NotFoundPizzas';
+import Pagination from '../Pagination';
 
-function Home() {
+function Home({ searchValue }) {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState(0);
@@ -14,6 +16,9 @@ function Home() {
     sortBy: 'rating',
     order: 'desc',
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 4;
+  const pageCount = Math.ceil(items.length / pageSize);
 
   useEffect(() => {
     const category = activeCategory > 0 ? `category=${activeCategory}` : '';
@@ -25,10 +30,35 @@ function Home() {
     )
       .then((res) => res.json())
       .then((pizzas) => {
-        setItems(pizzas);
+        if (searchValue) {
+          const pizzasSearch = pizzas.filter((pizza) =>
+            pizza.title.toLowerCase().includes(searchValue.toLowerCase()),
+          );
+
+          setItems(pizzasSearch);
+          setCurrentPage(1);
+        } else {
+          setItems(pizzas);
+        }
         setIsLoading(false);
       });
-  }, [activeCategory, activeSort]);
+  }, [activeCategory, activeSort, searchValue, currentPage]);
+
+  function pagination(arr, currentPage, pageSize) {
+    const startIndex = (currentPage - 1) * pageSize;
+    return [...arr].splice(startIndex, pageSize);
+  }
+
+  function handleChangePage(page) {
+    if (page < 1) return 1;
+    if (page > pageCount) return pageCount;
+
+    setIsLoading(true);
+    setCurrentPage(page);
+    setIsLoading(false);
+  }
+
+  const arrPagination = pagination(items, currentPage, pageSize);
 
   return (
     <>
@@ -43,13 +73,28 @@ function Home() {
         />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(activeCategory === 0 ? 6 : 3)].map((_, i) => (
-              <Skeleton key={i} />
-            ))
-          : items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza} />)}
-      </div>
+      {isLoading ? (
+        <div className="content__items">
+          {[...new Array(6)].map((_, i) => (
+            <Skeleton key={i} />
+          ))}
+        </div>
+      ) : items.length > 0 ? (
+        <>
+          <div className="content__items">
+            {arrPagination.map((pizza) => (
+              <PizzaBlock key={pizza.id} {...pizza} />
+            ))}
+          </div>
+          <Pagination
+            pageCount={pageCount}
+            currentPage={currentPage}
+            handleChangePage={handleChangePage}
+          />
+        </>
+      ) : (
+        <NotFoundPizzas />
+      )}
     </>
   );
 }
