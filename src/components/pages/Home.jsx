@@ -1,31 +1,28 @@
 import { useContext, useEffect, useState } from 'react';
-
+import { useSelector } from 'react-redux';
+import { searchContext } from '../../App';
 import Categories from '../Categories';
 import Sort from '../Sort';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock';
 import NotFoundPizzas from '../NotFoundPizzas';
 import Pagination from '../Pagination';
-import { searchContext } from '../../App';
+import { pageSize } from '../../utils/constants';
 
 function Home() {
   const { searchValue } = useContext(searchContext);
-
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [activeSort, setActiveSort] = useState({
-    title: 'Популярности',
-    sortBy: 'rating',
-    order: 'desc',
-  });
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 4;
+  const { selectedCategoryId, selectedSort } = useSelector(
+    (state) => state.filter,
+  );
   const pageCount = Math.ceil(items.length / pageSize);
 
   useEffect(() => {
-    const category = activeCategory > 0 ? `category=${activeCategory}` : '';
-    const sortBy = `sortBy=${activeSort.sortBy}&order=${activeSort.order}`;
+    const category =
+      selectedCategoryId > 0 ? `category=${selectedCategoryId}` : '';
+    const sortBy = `sortBy=${selectedSort.sortBy}&order=${selectedSort.order}`;
 
     setIsLoading(true);
     fetch(
@@ -45,7 +42,7 @@ function Home() {
         }
         setIsLoading(false);
       });
-  }, [activeCategory, activeSort, searchValue, currentPage]);
+  }, [selectedCategoryId, selectedSort, searchValue, currentPage]);
 
   function pagination(arr, currentPage, pageSize) {
     const startIndex = (currentPage - 1) * pageSize;
@@ -66,14 +63,8 @@ function Home() {
   return (
     <>
       <div className="content__top">
-        <Categories
-          activeCategory={activeCategory}
-          onChangeCategory={(id) => setActiveCategory(id)}
-        />
-        <Sort
-          activeSort={activeSort}
-          onChangeSort={(obj) => setActiveSort(obj)}
-        />
+        <Categories />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {isLoading ? (
