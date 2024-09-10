@@ -7,15 +7,16 @@ import PizzaBlock from '../PizzaBlock';
 import NotFoundPizzas from '../NotFoundPizzas';
 import Pagination from '../Pagination';
 import { pageSize } from '../../utils/constants';
+import axios from 'axios';
 
 function Home() {
   const searchValue = useSelector((state) => state.filter.searchValue);
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const { selectedCategoryId, selectedSort } = useSelector(
     (state) => state.filter,
   );
+  const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
   const pageCount = Math.ceil(items.length / pageSize);
 
   useEffect(() => {
@@ -24,11 +25,14 @@ function Home() {
     const sortBy = `sortBy=${selectedSort.sortBy}&order=${selectedSort.order}`;
 
     setIsLoading(true);
-    fetch(
-      `https://66d6c751006bfbe2e64e8d5f.mockapi.io/items?${category}&${sortBy}`,
-    )
-      .then((res) => res.json())
-      .then((pizzas) => {
+
+    axios
+      .get(
+        `https://66d6c751006bfbe2e64e8d5f.mockapi.io/items?${category}&${sortBy}`,
+      )
+      .then((response) => {
+        const pizzas = response.data;
+
         if (searchValue) {
           const pizzasSearch = pizzas.filter((pizza) =>
             pizza.title.toLowerCase().includes(searchValue.toLowerCase()),
