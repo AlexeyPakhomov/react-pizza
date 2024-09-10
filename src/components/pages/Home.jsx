@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { searchContext } from '../../App';
 import Categories from '../Categories';
 import Sort from '../Sort';
 import Skeleton from '../PizzaBlock/Skeleton';
@@ -10,7 +9,7 @@ import Pagination from '../Pagination';
 import { pageSize } from '../../utils/constants';
 
 function Home() {
-  const { searchValue } = useContext(searchContext);
+  const searchValue = useSelector((state) => state.filter.searchValue);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
