@@ -8,6 +8,7 @@ const initialState = {
     order: 'desc',
   },
   searchValue: '',
+  currentPage: 1,
 };
 
 export const filterSlice = createSlice({
@@ -16,16 +17,29 @@ export const filterSlice = createSlice({
   reducers: {
     setCategoryId(state, action) {
       state.selectedCategoryId = action.payload;
+      updateCurrentPage(state);
     },
     setSort(state, action) {
       state.selectedSort = action.payload;
+      updateCurrentPage(state);
     },
     setSearchValue(state, action) {
       state.searchValue = action.payload;
+      updateCurrentPage(state);
+    },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
     },
   },
 });
 
-export const { setCategoryId, setSort, setSearchValue } = filterSlice.actions;
+function updateCurrentPage(state) {
+  if (state.currentPage !== 1) {
+    state.currentPage = 1;
+  }
+}
+
+export const { setCategoryId, setSort, setSearchValue, setCurrentPage } =
+  filterSlice.actions;
 
 export default filterSlice.reducer;

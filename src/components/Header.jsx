@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import logoPizza from '../assets/img/pizza-logo.svg';
-import Search from './Search';
+import Search from './Search/Search';
 
 function Header() {
   return (

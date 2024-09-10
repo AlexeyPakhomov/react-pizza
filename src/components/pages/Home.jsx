@@ -1,22 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Categories from '../Categories';
 import Sort from '../Sort';
 import Skeleton from '../PizzaBlock/Skeleton';
-import PizzaBlock from '../PizzaBlock';
-import NotFoundPizzas from '../NotFoundPizzas';
-import Pagination from '../Pagination';
+import PizzaBlock from '../PizzaBlock/PizzaBlock';
+import NotFoundPizzas from '../NotFoundPizzas/NotFoundPizzas';
+import Pagination from '../Pagination/Pagination';
 import { pageSize } from '../../utils/constants';
 import axios from 'axios';
+import { setCurrentPage } from '../redux/slices/filterSlice';
 
 function Home() {
+  const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.filter.searchValue);
-  const { selectedCategoryId, selectedSort } = useSelector(
+  const { selectedCategoryId, selectedSort, currentPage } = useSelector(
     (state) => state.filter,
   );
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+
   const pageCount = Math.ceil(items.length / pageSize);
 
   useEffect(() => {
@@ -39,7 +41,7 @@ function Home() {
           );
 
           setItems(pizzasSearch);
-          setCurrentPage(1);
+          dispatch(setCurrentPage(1));
         } else {
           setItems(pizzas);
         }
@@ -57,7 +59,7 @@ function Home() {
     if (page > pageCount) return pageCount;
 
     setIsLoading(true);
-    setCurrentPage(page);
+    dispatch(setCurrentPage(page));
     setIsLoading(false);
   }
 
@@ -85,7 +87,6 @@ function Home() {
           </div>
           <Pagination
             pageCount={pageCount}
-            currentPage={currentPage}
             handleChangePage={handleChangePage}
           />
         </>
