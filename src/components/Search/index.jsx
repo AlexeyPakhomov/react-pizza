@@ -1,14 +1,27 @@
 import style from './Search.module.scss';
 import searchImg from '../../assets/img/search_icon.svg';
 import removeIcon from '../../assets/img/remove_icon.svg';
-import { useContext, useRef } from 'react';
+import { useCallback, useContext, useRef, useState } from 'react';
 import { searchContext } from '../../App';
+import debounce from 'lodash.debounce';
 
 const Search = () => {
   const searchRef = useRef();
-  const { searchValue, setSearchValue } = useContext(searchContext);
+  const [inputValue, setInputValue] = useState('');
+  const { setSearchValue } = useContext(searchContext);
+
+  const finalChangeInput = useCallback(
+    debounce((value) => setSearchValue(value), 1000),
+    [],
+  );
+
+  function handleChangeInput(e) {
+    setInputValue(e.target.value);
+    finalChangeInput(e.target.value);
+  }
 
   function handleClearInput() {
+    setInputValue('');
     setSearchValue('');
     searchRef.current.focus();
   }
@@ -22,8 +35,8 @@ const Search = () => {
       />
       <input
         ref={searchRef}
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={inputValue}
+        onChange={(e) => handleChangeInput(e)}
         className={style.input}
         placeholder="Введите для поиска..."
       />
