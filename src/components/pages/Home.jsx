@@ -65,8 +65,6 @@ function Home() {
 
   //Если в первом рендере были параметры в URL, то обновляем их в редакс
   useEffect(() => {
-    console.log('зашли window.location.search');
-
     if (window.location.search) {
       const urlParams = qs.parse(window.location.search.slice(1));
       const sortObj = sortingOptions.find(
@@ -76,7 +74,6 @@ function Home() {
       dispatch(setFilter({ ...urlParams, selectedSort: sortObj }));
 
       isSearch.current = true;
-      console.log('вышли window.location.search');
     }
   }, []);
 
