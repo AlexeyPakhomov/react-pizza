@@ -43,6 +43,10 @@
     min-width: 32px;
     padding: 0;
     border-width: 2px;
+
+    &_disabled {
+      opacity: 0.3;
+    }
   }
 
   &--black {

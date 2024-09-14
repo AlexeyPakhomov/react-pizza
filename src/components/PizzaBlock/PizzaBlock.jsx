@@ -1,33 +1,43 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem } from '../redux/slices/cartSlice';
 
-function PizzaBlock({
-  imageUrl,
-  title,
-  types,
-  sizes,
-  price,
-}) {
+function PizzaBlock({ id, imageUrl, title, types, sizes, price }) {
   const typesPizza = ['тонкое', 'традиционное'];
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
 
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) =>
+    state.cart.cartItems.find((item) => item.id === id),
+  );
+
+  function addPizzaCart() {
+    const item = {
+      id,
+      imageUrl,
+      title,
+      typePizza: typesPizza[activeType],
+      size: sizes[activeSize],
+      price,
+    };
+
+    dispatch(addItem(item));
+  }
+
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src={imageUrl}
-        alt="Pizza"
-      />
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
           {types.map((type) => (
             <li
               key={type}
-              onClick={() => setActiveType(type)}
-              className={
-                activeType === type ? 'active' : ''
-              }>
+              onClick={() => {
+                setActiveType(type);
+              }}
+              className={activeType === type ? 'active' : ''}>
               {typesPizza[type]}
             </li>
           ))}
@@ -44,9 +54,7 @@ function PizzaBlock({
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">
-          от {price} ₽
-        </div>
+        <div className="pizza-block__price">от {price} ₽</div>
         <div className="button button--outline button--add">
           <svg
             width="12"
@@ -59,8 +67,9 @@ function PizzaBlock({
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
-          <i>0</i>
+          <span onClick={() => addPizzaCart()}>Добавить</span>
+
+          {cartItem?.count > 0 && <i>{cartItem.count}</i>}
         </div>
       </div>
     </div>
