@@ -11,8 +11,8 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action) {
-      const findItem = state.cartItems.find(
-        (obj) => obj.id === action.payload.id,
+      const findItem = state.cartItems.find((obj) =>
+        findItemInArr(obj, action.payload),
       );
 
       if (findItem) {
@@ -21,34 +21,33 @@ export const cartSlice = createSlice({
         state.cartItems.push({ ...action.payload, count: 1 });
       }
 
-      state.totalPrice = calculateTotalPrice(state.cartItems);
-      state.totalCount = calculateTotalCount(state.cartItems);
+      getTotalPriceCount(state);
     },
     plusItem(state, action) {
       state.cartItems.forEach(
-        (item) => item.id === action.payload && item.count++,
+        (item) => findItemInArr(item, action.payload) && item.count++,
       );
 
-      state.totalPrice = calculateTotalPrice(state.cartItems);
-      state.totalCount = calculateTotalCount(state.cartItems);
+      getTotalPriceCount(state);
     },
     minusItem(state, action) {
       state.cartItems.forEach((item) => {
-        if (item.id === action.payload) {
+        if (findItemInArr(item, action.payload)) {
           return item.count >= 1 ? (item.count -= 1) : 0;
         }
       });
 
-      state.totalPrice = calculateTotalPrice(state.cartItems);
-      state.totalCount = calculateTotalCount(state.cartItems);
+      getTotalPriceCount(state);
     },
     removeItem(state, action) {
       state.cartItems = state.cartItems.filter(
-        (item) => item.id !== action.payload,
+        (item) =>
+          item.id !== action.payload.id ||
+          item.size !== action.payload.size ||
+          item.typePizza !== action.payload.typePizza,
       );
 
-      state.totalPrice = calculateTotalPrice(state.cartItems);
-      state.totalCount = calculateTotalCount(state.cartItems);
+      getTotalPriceCount(state);
     },
     clearCart(state) {
       state.cartItems = [];
@@ -57,6 +56,19 @@ export const cartSlice = createSlice({
     },
   },
 });
+
+function getTotalPriceCount(state) {
+  state.totalPrice = calculateTotalPrice(state.cartItems);
+  state.totalCount = calculateTotalCount(state.cartItems);
+}
+
+function findItemInArr(obj, payload) {
+  return (
+    obj.id === payload.id &&
+    obj.size === payload.size &&
+    obj.typePizza === payload.typePizza
+  );
+}
 
 function calculateTotalPrice(cartItems) {
   return cartItems.reduce((sum, item) => sum + item.price * item.count, 0);

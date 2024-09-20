@@ -5,15 +5,15 @@ const CartItem = ({ id, imageUrl, title, typePizza, size, price, count }) => {
   const dispatch = useDispatch();
 
   function handleRemoveItem() {
-    dispatch(removeItem(id));
+    dispatch(removeItem({ id, typePizza, size }));
   }
 
   function handlePlusItem() {
-    dispatch(plusItem(id));
+    dispatch(plusItem({ id, typePizza, size }));
   }
 
   function handleMinusItem() {
-    dispatch(minusItem(id));
+    dispatch(minusItem({ id, typePizza, size }));
   }
 
   return (
