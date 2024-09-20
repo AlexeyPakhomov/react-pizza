@@ -1,7 +1,12 @@
 import style from './NotFoundPizzas.module.scss';
 
-const NotFoundPizzas = () => {
-  return <h2 className={style.notFoundPizza}>Пиццы не найдены</h2>;
+const NotFoundPizzas = ({ title, text }) => {
+  return (
+    <>
+      <h2 className={style.notFoundPizza}>{title}</h2>
+      <p className={style.notFoundPizza__text}>{text}</p>
+    </>
+  );
 };
 
 export default NotFoundPizzas;

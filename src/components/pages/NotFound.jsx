@@ -1,9 +1,9 @@
-import NotFoundBlock from '../NotFoundBlock/NotFoundBlock';
+import NotFoundPages from '../NotFoundPages/NotFoundPages';
 
 function NotFound() {
   return (
     <>
-      <NotFoundBlock />
+      <NotFoundPages />
     </>
   );
 }

@@ -65,6 +65,8 @@ function calculateTotalCount(cartItems) {
   return cartItems.reduce((sum, item) => sum + item.count, 0);
 }
 
+export const selectorCart = (state) => state.cart;
+
 export const { addItem, removeItem, plusItem, minusItem, clearCart } =
   cartSlice.actions;
 

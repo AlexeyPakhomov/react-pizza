@@ -1,12 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId } from './redux/slices/filterSlice';
+import { selectorFilter, setCategoryId } from './redux/slices/filterSlice';
 import { categories } from '../utils/constants';
 
 function Categories() {
   const dispatch = useDispatch();
-  const selectedCategory = useSelector(
-    (state) => state.filter.selectedCategoryId,
-  );
+  const { selectedCategoryId } = useSelector(selectorFilter);
 
   function handleChangeCategory(id) {
     dispatch(setCategoryId(id));
@@ -19,7 +17,7 @@ function Categories() {
           <li
             key={i}
             onClick={() => handleChangeCategory(i)}
-            className={selectedCategory === i ? 'active' : ''}>
+            className={selectedCategoryId === i ? 'active' : ''}>
             {categoryName}
           </li>
         ))}

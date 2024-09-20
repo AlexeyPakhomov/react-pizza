@@ -1,25 +1,33 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import qs from 'qs';
 import { pageSize, sortingOptions } from '../../utils/constants';
-import { setCurrentPage, setFilter } from '../redux/slices/filterSlice';
+import {
+  selectorFilter,
+  setCurrentPage,
+  setFilter,
+} from '../redux/slices/filterSlice';
 import Categories from '../Categories';
 import Sort from '../Sort';
 import Skeleton from '../PizzaBlock/Skeleton';
 import PizzaBlock from '../PizzaBlock/PizzaBlock';
 import NotFoundPizzas from '../NotFoundPizzas/NotFoundPizzas';
 import Pagination from '../Pagination/Pagination';
+import {
+  fetchPizzas,
+  selectorPizzas,
+  setPizzas,
+} from '../redux/slices/pizzasSlice';
 
 function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { selectedCategoryId, selectedSort, searchValue, currentPage } =
-    useSelector((state) => state.filter);
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const pageCount = Math.ceil(items.length / pageSize);
+    useSelector(selectorFilter);
+  const { pizzaItems, status } = useSelector(selectorPizzas);
+
+  const pageCount = Math.ceil(pizzaItems.length / pageSize);
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
@@ -28,26 +36,15 @@ function Home() {
       selectedCategoryId > 0 ? `category=${selectedCategoryId}` : '';
     const sortBy = `sortBy=${selectedSort.sortBy}&order=${selectedSort.order}`;
 
-    setIsLoading(true);
-    axios
-      .get(
-        `https://66d6c751006bfbe2e64e8d5f.mockapi.io/items?${category}&${sortBy}`,
-      )
-      .then((response) => {
-        const pizzas = response.data;
-
-        if (searchValue) {
-          const pizzasSearch = pizzas.filter((pizza) =>
-            pizza.title.toLowerCase().includes(searchValue.toLowerCase()),
-          );
-
-          setItems(pizzasSearch);
-          dispatch(setCurrentPage(1));
-        } else {
-          setItems(pizzas);
-        }
-        setIsLoading(false);
-      });
+    if (searchValue) {
+      const pizzasSearch = pizzaItems.filter((pizza) =>
+        pizza.title.toLowerCase().includes(searchValue.toLowerCase()),
+      );
+      dispatch(setPizzas(pizzasSearch));
+      dispatch(setCurrentPage(1));
+    } else {
+      dispatch(fetchPizzas({ category, sortBy }));
+    }
   }
 
   // Пропускает первый рендер с голым URL и начинает работать со второго рендера если затронуты зависимости (добавляет параметры к URL)
@@ -82,7 +79,6 @@ function Home() {
     if (!isSearch.current) {
       fetchPizza();
     }
-
     isSearch.current = false;
   }, [selectedCategoryId, selectedSort, searchValue, currentPage]);
 
@@ -95,12 +91,10 @@ function Home() {
     if (page < 1) return 1;
     if (page > pageCount) return pageCount;
 
-    setIsLoading(true);
     dispatch(setCurrentPage(page));
-    setIsLoading(false);
   }
 
-  const arrPagination = pagination(items, currentPage, pageSize);
+  const arrPagination = pagination(pizzaItems, currentPage, pageSize);
 
   return (
     <>
@@ -109,13 +103,14 @@ function Home() {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      {isLoading ? (
+      {status === 'loading' && (
         <div className="content__items">
           {[...new Array(6)].map((_, i) => (
             <Skeleton key={i} />
           ))}
         </div>
-      ) : items.length > 0 ? (
+      )}{' '}
+      {status === 'success' && pizzaItems.length > 0 ? (
         <>
           <div className="content__items">
             {arrPagination.map((pizza) => (
@@ -128,7 +123,16 @@ function Home() {
           />
         </>
       ) : (
-        <NotFoundPizzas />
+        <NotFoundPizzas
+          title="Пиццы не найдены"
+          text="Попробуйте изменить запрос."
+        />
+      )}
+      {status === 'error' && (
+        <NotFoundPizzas
+          title="Произошла ошибка"
+          text="Попробуйте повторить позднее."
+        />
       )}
     </>
   );

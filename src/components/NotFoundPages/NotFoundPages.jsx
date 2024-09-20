@@ -1,6 +1,6 @@
-import style from './NotFoundBlock.module.scss';
+import style from './NotFoundPages.module.scss';
 
-function NotFoundBlock() {
+function NotFoundPages() {
   return (
     <div className={style.root}>
       <span>😕</span>
@@ -10,4 +10,4 @@ function NotFoundBlock() {
   );
 }
 
-export default NotFoundBlock;
+export default NotFoundPages;

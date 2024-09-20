@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import style from './Pagination.module.scss';
+import { selectorFilter } from '../redux/slices/filterSlice';
 
 const Pagination = ({ pageCount, handleChangePage }) => {
-  const currentPage = useSelector((state) => state.filter.currentPage);
+  const { currentPage } = useSelector(selectorFilter);
 
   function createArrPages(pageCount) {
     const pageNumbers = [];
