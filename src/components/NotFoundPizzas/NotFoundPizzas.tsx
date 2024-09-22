@@ -1,6 +1,11 @@
 import style from './NotFoundPizzas.module.scss';
 
-const NotFoundPizzas = ({ title, text }) => {
+type NotFoundPizzasProps = {
+  title: string;
+  text: string;
+};
+
+const NotFoundPizzas: React.FC<NotFoundPizzasProps> = ({ title, text }) => {
   return (
     <>
       <h2 className={style.notFoundPizza}>{title}</h2>

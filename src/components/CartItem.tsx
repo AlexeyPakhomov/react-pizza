@@ -1,7 +1,25 @@
 import { useDispatch } from 'react-redux';
 import { minusItem, plusItem, removeItem } from './redux/slices/cartSlice';
 
-const CartItem = ({ id, imageUrl, title, typePizza, size, price, count }) => {
+type CartItemProps = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  typePizza: string;
+  size: number;
+  price: number;
+  count: number;
+};
+
+const CartItem: React.FC<CartItemProps> = ({
+  id,
+  imageUrl,
+  title,
+  typePizza,
+  size,
+  price,
+  count,
+}) => {
   const dispatch = useDispatch();
 
   function handleRemoveItem() {
@@ -33,7 +51,8 @@ const CartItem = ({ id, imageUrl, title, typePizza, size, price, count }) => {
             count <= 0 ? 'button--circle_disabled' : ''
           }`}
           onClick={handleMinusItem}
-          disabled={true}>
+          //disabled={true}
+        >
           <svg
             width="10"
             height="10"

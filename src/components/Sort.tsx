@@ -1,22 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorFilter, setSort } from './redux/slices/filterSlice';
-import { sortingOptions } from '../utils/constants';
+import { SortItem, sortingOptions } from '../utils/constants';
 
-function Sort() {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const { selectedSort } = useSelector(selectorFilter);
   const [isOpen, setIsOpen] = useState(false);
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  function handleChangeSort(obj) {
+  function handleChangeSort(obj: SortItem) {
     dispatch(setSort(obj));
     setIsOpen(false);
   }
 
   useEffect(() => {
-    const handleClosePopup = (e) => {
-      if (!sortRef.current.contains(e.target)) {
+    const handleClosePopup = (e: any) => {
+      if (!sortRef.current?.contains(e.target)) {
         setIsOpen(false);
       }
     };
@@ -60,6 +60,6 @@ function Sort() {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

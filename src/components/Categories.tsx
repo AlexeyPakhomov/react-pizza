@@ -2,11 +2,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectorFilter, setCategoryId } from './redux/slices/filterSlice';
 import { categories } from '../utils/constants';
 
-function Categories() {
+const Categories: React.FC = () => {
   const dispatch = useDispatch();
   const { selectedCategoryId } = useSelector(selectorFilter);
 
-  function handleChangeCategory(id) {
+  function handleChangeCategory(id: number) {
     dispatch(setCategoryId(id));
   }
 
@@ -24,6 +24,6 @@ function Categories() {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

@@ -1,11 +1,11 @@
 import NotFoundPages from '../NotFoundPages/NotFoundPages';
 
-function NotFound() {
+const NotFound: React.FC = () => {
   return (
     <>
       <NotFoundPages />
     </>
   );
-}
+};
 
 export default NotFound;

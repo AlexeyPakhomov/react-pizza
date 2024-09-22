@@ -37,12 +37,13 @@ function Home() {
     const sortBy = `sortBy=${selectedSort.sortBy}&order=${selectedSort.order}`;
 
     if (searchValue) {
-      const pizzasSearch = pizzaItems.filter((pizza) =>
+      const pizzasSearch = pizzaItems.filter((pizza: any) =>
         pizza.title.toLowerCase().includes(searchValue.toLowerCase()),
       );
       dispatch(setPizzas(pizzasSearch));
       dispatch(setCurrentPage(1));
     } else {
+      // @ts-ignore
       dispatch(fetchPizzas({ category, sortBy }));
     }
   }
@@ -82,12 +83,12 @@ function Home() {
     isSearch.current = false;
   }, [selectedCategoryId, selectedSort, searchValue, currentPage]);
 
-  function pagination(arr, currentPage, pageSize) {
+  function pagination(arr: any, currentPage: number, pageSize: number) {
     const startIndex = (currentPage - 1) * pageSize;
     return [...arr].splice(startIndex, pageSize);
   }
 
-  function handleChangePage(page) {
+  function handleChangePage(page: number) {
     if (page < 1) return 1;
     if (page > pageCount) return pageCount;
 

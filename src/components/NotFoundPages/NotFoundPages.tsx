@@ -1,6 +1,6 @@
 import style from './NotFoundPages.module.scss';
 
-function NotFoundPages() {
+const NotFoundPages: React.FC = () => {
   return (
     <div className={style.root}>
       <span>😕</span>
@@ -8,6 +8,6 @@ function NotFoundPages() {
       <h1>Страница не найдена</h1>
     </div>
   );
-}
+};
 
 export default NotFoundPages;

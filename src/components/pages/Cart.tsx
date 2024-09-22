@@ -87,7 +87,7 @@ function Cart() {
           </div>
         </div>
         <div className="content__items">
-          {cartItems.map((pizza) => (
+          {cartItems.map((pizza: any) => (
             <CartItem
               key={`id=${pizza.id}&type=${pizza.typePizza}&size=${pizza.size}`}
               {...pizza}
