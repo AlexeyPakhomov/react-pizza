@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorFilter, setSort } from './redux/slices/filterSlice';
-import { SortItem, sortingOptions } from '../utils/constants';
+import { TSortItem, sortingOptions } from '../utils/constants';
 
 const Sort: React.FC = () => {
   const dispatch = useDispatch();
@@ -9,17 +9,19 @@ const Sort: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const sortRef = useRef<HTMLDivElement>(null);
 
-  function handleChangeSort(obj: SortItem) {
+  function handleChangeSort(obj: TSortItem) {
     dispatch(setSort(obj));
     setIsOpen(false);
   }
 
   useEffect(() => {
-    const handleClosePopup = (e: any) => {
-      if (!sortRef.current?.contains(e.target)) {
+    function handleClosePopup(e: MouseEvent) {
+      //const _e = e as MouseEvent & { e: Node[] };
+      const _e = e;
+      if (!sortRef.current?.contains(_e.target as Node)) {
         setIsOpen(false);
       }
-    };
+    }
     document.body.addEventListener('click', handleClosePopup);
 
     return () => document.body.removeEventListener('click', handleClosePopup);

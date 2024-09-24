@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import qs from 'qs';
-import { pageSize, sortingOptions } from '../../utils/constants';
+import { pageSize, sortingOptions, Status } from '../../utils/constants';
 import {
   selectorFilter,
   setCurrentPage,
@@ -69,7 +69,15 @@ function Home() {
         (item) => item.sortBy === urlParams.selectedSort,
       );
 
-      dispatch(setFilter({ ...urlParams, selectedSort: sortObj }));
+      if (urlParams && sortObj) {
+        dispatch(
+          setFilter({
+            selectedCategoryId: Number(urlParams.selectedCategoryId),
+            selectedSort: sortObj,
+            currentPage: Number(urlParams.currentPage),
+          }),
+        );
+      }
 
       isSearch.current = true;
     }
@@ -97,6 +105,15 @@ function Home() {
 
   const arrPagination = pagination(pizzaItems, currentPage, pageSize);
 
+  if (status === Status.ERROR) {
+    return (
+      <NotFoundPizzas
+        title="Произошла ошибка"
+        text="Попробуйте повторить позднее."
+      />
+    );
+  }
+
   return (
     <>
       <div className="content__top">
@@ -104,14 +121,13 @@ function Home() {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      {status === 'loading' && (
+      {status === Status.LOADING ? (
         <div className="content__items">
           {[...new Array(6)].map((_, i) => (
             <Skeleton key={i} />
           ))}
         </div>
-      )}{' '}
-      {status === 'success' && pizzaItems.length > 0 ? (
+      ) : status === Status.SUCCESS && pizzaItems.length > 0 ? (
         <>
           <div className="content__items">
             {arrPagination.map((pizza) => (
@@ -127,12 +143,6 @@ function Home() {
         <NotFoundPizzas
           title="Пиццы не найдены"
           text="Попробуйте изменить запрос."
-        />
-      )}
-      {status === 'error' && (
-        <NotFoundPizzas
-          title="Произошла ошибка"
-          text="Попробуйте повторить позднее."
         />
       )}
     </>

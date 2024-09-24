@@ -4,7 +4,7 @@ import { selectorFilter } from '../redux/slices/filterSlice';
 
 type PaginationProps = {
   pageCount: number;
-  handleChangePage: any;
+  handleChangePage: (page: number) => void;
 };
 
 const Pagination: React.FC<PaginationProps> = ({

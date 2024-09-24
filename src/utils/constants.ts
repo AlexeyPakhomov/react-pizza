@@ -1,10 +1,10 @@
-export type SortItem = {
+export type TSortItem = {
   title: string;
   sortBy: string;
   order: string;
 };
 
-export const sortingOptions: SortItem[] = [
+export const sortingOptions: TSortItem[] = [
   { title: 'Популярности', sortBy: 'rating', order: 'desc' },
   { title: 'Дешевле', sortBy: 'price', order: 'asc' },
   { title: 'Дороже', sortBy: 'price', order: 'desc' },
@@ -22,3 +22,9 @@ export const categories: string[] = [
   'Острые',
   'Микс',
 ];
+
+export enum Status {
+  LOADING = 'loading',
+  SUCCESS = 'success',
+  ERROR = 'error',
+}

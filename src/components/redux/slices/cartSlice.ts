@@ -1,6 +1,29 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
-const initialState = {
+export type TCartItem = {
+  id: number;
+  imageUrl: string;
+  title: string;
+  typePizza: string;
+  size: number;
+  price: number;
+  count: number;
+};
+
+export type TPlusItem = {
+  id: number;
+  typePizza: string;
+  size: number;
+};
+
+interface ICartSliceState {
+  cartItems: TCartItem[];
+  totalPrice: number;
+  totalCount: number;
+}
+
+const initialState: ICartSliceState = {
   cartItems: [],
   totalPrice: 0,
   totalCount: 0,
@@ -10,7 +33,7 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addItem(state, action) {
+    addItem(state, action: PayloadAction<TCartItem>) {
       const findItem = state.cartItems.find((obj) =>
         findItemInArr(obj, action.payload),
       );
@@ -23,14 +46,14 @@ export const cartSlice = createSlice({
 
       getTotalPriceCount(state);
     },
-    plusItem(state, action) {
+    plusItem(state, action: PayloadAction<TPlusItem>) {
       state.cartItems.forEach(
         (item) => findItemInArr(item, action.payload) && item.count++,
       );
 
       getTotalPriceCount(state);
     },
-    minusItem(state, action) {
+    minusItem(state, action: PayloadAction<TPlusItem>) {
       state.cartItems.forEach((item) => {
         if (findItemInArr(item, action.payload)) {
           return item.count >= 1 ? (item.count -= 1) : 0;
@@ -39,7 +62,7 @@ export const cartSlice = createSlice({
 
       getTotalPriceCount(state);
     },
-    removeItem(state, action) {
+    removeItem(state, action: PayloadAction<TPlusItem>) {
       state.cartItems = state.cartItems.filter(
         (item) =>
           item.id !== action.payload.id ||
@@ -57,12 +80,12 @@ export const cartSlice = createSlice({
   },
 });
 
-function getTotalPriceCount(state) {
+function getTotalPriceCount(state: ICartSliceState) {
   state.totalPrice = calculateTotalPrice(state.cartItems);
   state.totalCount = calculateTotalCount(state.cartItems);
 }
 
-function findItemInArr(obj, payload) {
+function findItemInArr(obj: TCartItem, payload: TPlusItem) {
   return (
     obj.id === payload.id &&
     obj.size === payload.size &&
@@ -70,14 +93,14 @@ function findItemInArr(obj, payload) {
   );
 }
 
-function calculateTotalPrice(cartItems) {
+function calculateTotalPrice(cartItems: TCartItem[]) {
   return cartItems.reduce((sum, item) => sum + item.price * item.count, 0);
 }
-function calculateTotalCount(cartItems) {
+function calculateTotalCount(cartItems: TCartItem[]) {
   return cartItems.reduce((sum, item) => sum + item.count, 0);
 }
 
-export const selectorCart = (state) => state.cart;
+export const selectorCart = (state: RootState) => state.cart;
 
 export const { addItem, removeItem, plusItem, minusItem, clearCart } =
   cartSlice.actions;
