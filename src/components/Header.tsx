@@ -20,6 +20,7 @@ const Header: React.FC = () => {
           </div>
         </div>
         <Search />
+
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>{totalPrice} ₽</span>

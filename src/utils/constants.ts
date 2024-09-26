@@ -12,8 +12,6 @@ export const sortingOptions: TSortItem[] = [
   { title: 'Названию (Я-А)', sortBy: 'title', order: 'desc' },
 ];
 
-export const pageSize: number = 4;
-
 export const categories: string[] = [
   'Все',
   'Мясные',

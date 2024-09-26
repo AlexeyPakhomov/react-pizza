@@ -1,11 +1,13 @@
 import ContentLoader from 'react-content-loader';
+import style from './Skeleton.module.scss';
 
 const Skeleton: React.FC = () => (
   <ContentLoader
-    speed={2}
+    className={style.skeleton}
+    speed={10}
     width={280}
     height={465}
-    viewBox="0 0 280 465"
+    viewBox="0 0 280 464"
     backgroundColor="#ebebeb"
     foregroundColor="#ffffff"
     //{...props}

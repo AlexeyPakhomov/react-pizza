@@ -5,8 +5,10 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorFilter, setSearchValue } from '../redux/slices/filterSlice';
+import { useLocation } from 'react-router-dom';
 
 const Search: React.FC = () => {
+  const location = useLocation();
   const searchRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState('');
   const dispatch = useDispatch();
@@ -34,24 +36,28 @@ const Search: React.FC = () => {
 
   return (
     <div className={style.searchBlock}>
-      <img
-        className={style.searchBlock__iconFind}
-        src={searchImg}
-        alt="search"
-      />
-      <input
-        ref={searchRef}
-        value={inputValue}
-        onChange={(e) => handleChangeInput(e)}
-        className={style.input}
-        placeholder="Введите для поиска..."
-      />
-      <img
-        onClick={() => handleClearInput()}
-        className={style.searchBlock__iconRemove}
-        src={removeIcon}
-        alt="remove"
-      />
+      {location.pathname !== '/cart' && (
+        <>
+          <img
+            className={style.searchBlock__iconFind}
+            src={searchImg}
+            alt="search"
+          />
+          <input
+            ref={searchRef}
+            value={inputValue}
+            onChange={(e) => handleChangeInput(e)}
+            className={style.input}
+            placeholder="Введите для поиска..."
+          />
+          <img
+            onClick={() => handleClearInput()}
+            className={style.searchBlock__iconRemove}
+            src={removeIcon}
+            alt="remove"
+          />
+        </>
+      )}
     </div>
   );
 };

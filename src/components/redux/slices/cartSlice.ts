@@ -11,7 +11,7 @@ export type TCartItem = {
   count: number;
 };
 
-export type TPlusItem = {
+export type TChangeQuantityItem = {
   id: number;
   typePizza: string;
   size: number;
@@ -46,23 +46,23 @@ export const cartSlice = createSlice({
 
       getTotalPriceCount(state);
     },
-    plusItem(state, action: PayloadAction<TPlusItem>) {
+    plusItem(state, action: PayloadAction<TChangeQuantityItem>) {
       state.cartItems.forEach(
         (item) => findItemInArr(item, action.payload) && item.count++,
       );
 
       getTotalPriceCount(state);
     },
-    minusItem(state, action: PayloadAction<TPlusItem>) {
+    minusItem(state, action: PayloadAction<TChangeQuantityItem>) {
       state.cartItems.forEach((item) => {
         if (findItemInArr(item, action.payload)) {
-          return item.count >= 1 ? (item.count -= 1) : 0;
+          return item.count > 1 ? (item.count -= 1) : 1;
         }
       });
 
       getTotalPriceCount(state);
     },
-    removeItem(state, action: PayloadAction<TPlusItem>) {
+    removeItem(state, action: PayloadAction<TChangeQuantityItem>) {
       state.cartItems = state.cartItems.filter(
         (item) =>
           item.id !== action.payload.id ||
@@ -85,7 +85,7 @@ function getTotalPriceCount(state: ICartSliceState) {
   state.totalCount = calculateTotalCount(state.cartItems);
 }
 
-function findItemInArr(obj: TCartItem, payload: TPlusItem) {
+function findItemInArr(obj: TCartItem, payload: TChangeQuantityItem) {
   return (
     obj.id === payload.id &&
     obj.size === payload.size &&

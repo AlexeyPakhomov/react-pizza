@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import qs from 'qs';
-import { pageSize, sortingOptions, Status } from '../../utils/constants';
+import { sortingOptions, Status } from '../../utils/constants';
 import {
   selectorFilter,
   setCurrentPage,
@@ -19,17 +19,20 @@ import {
   selectorPizzas,
   setPizzas,
 } from '../redux/slices/pizzasSlice';
+import { useAppDispatch } from '../redux/store';
+import useResize from '../../hooks/useResize';
 
-function Home() {
+const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { selectedCategoryId, selectedSort, searchValue, currentPage } =
     useSelector(selectorFilter);
   const { pizzaItems, status } = useSelector(selectorPizzas);
-
-  const pageCount = Math.ceil(pizzaItems.length / pageSize);
   const isSearch = useRef(false);
   const isMounted = useRef(false);
+  const width = useResize();
+  const pageSize = (width >= 1061 && width < 1441 && 3) || 4;
+  const pageCount = Math.ceil(pizzaItems.length / pageSize);
 
   function fetchPizza() {
     const category =
@@ -43,12 +46,11 @@ function Home() {
       dispatch(setPizzas(pizzasSearch));
       dispatch(setCurrentPage(1));
     } else {
-      // @ts-ignore
       dispatch(fetchPizzas({ category, sortBy }));
     }
   }
 
-  // Пропускает первый рендер с голым URL и начинает работать со второго рендера если затронуты зависимости (добавляет параметры к URL)
+  // Пропускает первый рендер с базовым URL и начинает работать со второго рендера если затронуты зависимости (добавляет параметры к URL)
   useEffect(() => {
     if (isMounted.current) {
       const queryString = qs.stringify({
@@ -122,11 +124,13 @@ function Home() {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === Status.LOADING ? (
-        <div className="content__items">
-          {[...new Array(6)].map((_, i) => (
-            <Skeleton key={i} />
-          ))}
-        </div>
+        <>
+          <div className="content__items">
+            {[...new Array(pageSize)].map((_, i) => (
+              <Skeleton key={i} />
+            ))}
+          </div>
+        </>
       ) : status === Status.SUCCESS && pizzaItems.length > 0 ? (
         <>
           <div className="content__items">
@@ -147,6 +151,6 @@ function Home() {
       )}
     </>
   );
-}
+};
 
 export default Home;

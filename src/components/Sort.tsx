@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectorFilter, setSort } from './redux/slices/filterSlice';
 import { TSortItem, sortingOptions } from '../utils/constants';
 
-const Sort: React.FC = () => {
+const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const { selectedSort } = useSelector(selectorFilter);
   const [isOpen, setIsOpen] = useState(false);
@@ -62,6 +62,6 @@ const Sort: React.FC = () => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

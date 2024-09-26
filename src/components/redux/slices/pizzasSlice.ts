@@ -8,18 +8,6 @@ type IFetchPizzas = {
   sortBy: string;
 };
 
-export const fetchPizzas = createAsyncThunk(
-  'pizzas/fetchPizzasStatus',
-  async (params: IFetchPizzas) => {
-    const { category, sortBy } = params;
-    const response = await axios.get<TPizzaItem[]>(
-      `https://66d6c751006bfbe2e64e8d5f.mockapi.io/items?${category}&${sortBy}`,
-    );
-
-    return response.data as TPizzaItem[];
-  },
-);
-
 type TPizzaItem = {
   id: number;
   imageUrl: string;
@@ -35,6 +23,18 @@ interface IPizzaSliceState {
   pizzaItems: TPizzaItem[];
   status: Status;
 }
+
+export const fetchPizzas = createAsyncThunk(
+  'pizzas/fetchPizzasStatus',
+  async (params: IFetchPizzas) => {
+    const { category, sortBy } = params;
+    const response = await axios.get<TPizzaItem[]>(
+      `https://66d6c751006bfbe2e64e8d5f.mockapi.io/items?${category}&${sortBy}`,
+    );
+
+    return response.data as TPizzaItem[];
+  },
+);
 
 const initialState: IPizzaSliceState = {
   pizzaItems: [],
@@ -54,17 +54,14 @@ export const pizzasSlice = createSlice({
       .addCase(fetchPizzas.pending, (state) => {
         state.pizzaItems = [];
         state.status = Status.LOADING;
-        //console.log(1, state.status);
       })
       .addCase(fetchPizzas.fulfilled, (state, action) => {
         state.pizzaItems = action.payload;
         state.status = Status.SUCCESS;
-        //console.log(2, state.status, state);
       })
       .addCase(fetchPizzas.rejected, (state) => {
         state.pizzaItems = [];
         state.status = Status.ERROR;
-        //console.log(3, state.status);
       });
   },
 });
