@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
+import { getCartItemsLS } from '../../../utils/getCartItemsLS';
+import {
+  calculateTotalCount,
+  calculateTotalPrice,
+} from '../../../utils/getTotalPriceCount';
 
 export type TCartItem = {
   id: number;
@@ -24,9 +29,9 @@ interface ICartSliceState {
 }
 
 const initialState: ICartSliceState = {
-  cartItems: [],
-  totalPrice: 0,
-  totalCount: 0,
+  cartItems: getCartItemsLS().item,
+  totalPrice: getCartItemsLS().totalPrice,
+  totalCount: getCartItemsLS().totalCount,
 };
 
 export const cartSlice = createSlice({
@@ -91,13 +96,6 @@ function findItemInArr(obj: TCartItem, payload: TChangeQuantityItem) {
     obj.size === payload.size &&
     obj.typePizza === payload.typePizza
   );
-}
-
-function calculateTotalPrice(cartItems: TCartItem[]) {
-  return cartItems.reduce((sum, item) => sum + item.price * item.count, 0);
-}
-function calculateTotalCount(cartItems: TCartItem[]) {
-  return cartItems.reduce((sum, item) => sum + item.count, 0);
 }
 
 export const selectorCart = (state: RootState) => state.cart;

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, selectorCart, TCartItem } from '../redux/slices/cartSlice';
+import { getCartItemsLS } from '../../utils/getCartItemsLS';
 
 type PizzaBlockProps = {
   id: number;
@@ -22,6 +23,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
   const typesPizza = ['тонкое', 'традиционное'];
   const [activeType, setActiveType] = useState(0);
   const [activeSize, setActiveSize] = useState(0);
+  const isMounted = useRef(false);
 
   const dispatch = useDispatch();
   const { cartItems } = useSelector(selectorCart);
@@ -46,6 +48,15 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
 
     dispatch(addItem(item));
   }
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const data = JSON.stringify(cartItems);
+      localStorage.setItem('cartItems', data);
+    }
+
+    isMounted.current = true;
+  }, [cartItems]);
 
   return (
     <div className="pizza-block">

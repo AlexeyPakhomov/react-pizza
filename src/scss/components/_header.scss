@@ -29,6 +29,9 @@
     @media (max-width: 1180px) {
       grid-area: logo;
     }
+    @media (max-width: 600px) {
+      margin: 0 auto;
+    }
   }
 
   &__logo {
