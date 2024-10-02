@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, selectorCart, TCartItem } from '../redux/slices/cartSlice';
-import { getCartItemsLS } from '../../utils/getCartItemsLS';
 
 type PizzaBlockProps = {
   id: number;

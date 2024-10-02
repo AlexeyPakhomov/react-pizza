@@ -1,11 +1,11 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import style from './Search.module.scss';
 import searchImg from '../../assets/img/search_icon.svg';
 import removeIcon from '../../assets/img/remove_icon.svg';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import debounce from 'lodash.debounce';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectorFilter, setSearchValue } from '../redux/slices/filterSlice';
-import { useLocation } from 'react-router-dom';
 
 const Search: React.FC = () => {
   const location = useLocation();
@@ -38,11 +38,7 @@ const Search: React.FC = () => {
     <div className={style.searchBlock}>
       {location.pathname !== '/cart' && (
         <>
-          <img
-            className={style.searchBlock__iconFind}
-            src={searchImg}
-            alt="search"
-          />
+          <img className={style.searchBlock__iconFind} src={searchImg} alt="search" />
           <input
             ref={searchRef}
             value={inputValue}

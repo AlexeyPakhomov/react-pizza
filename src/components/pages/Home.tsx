@@ -3,24 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
 import { sortingOptions, Status } from '../../utils/constants';
-import {
-  selectorFilter,
-  setCurrentPage,
-  setFilter,
-} from '../redux/slices/filterSlice';
-import Categories from '../Categories';
-import Sort from '../Sort';
-import Skeleton from '../PizzaBlock/Skeleton';
-import PizzaBlock from '../PizzaBlock/PizzaBlock';
-import NotFoundPizzas from '../NotFoundPizzas/NotFoundPizzas';
-import Pagination from '../Pagination/Pagination';
-import {
-  fetchPizzas,
-  selectorPizzas,
-  setPizzas,
-} from '../redux/slices/pizzasSlice';
-import { useAppDispatch } from '../redux/store';
 import useResize from '../../hooks/useResize';
+import { Skeleton, PizzaBlock, NotFoundPizzas, Categories, Sort, Pagination } from '../index';
+import { useAppDispatch } from '../redux/store';
+import { selectorFilter, setCurrentPage, setFilter } from '../redux/slices/filterSlice';
+import { fetchPizzas, selectorPizzas, setPizzas } from '../redux/slices/pizzasSlice';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -35,8 +22,7 @@ const Home: React.FC = () => {
   const pageCount = Math.ceil(pizzaItems.length / pageSize);
 
   function fetchPizza() {
-    const category =
-      selectedCategoryId > 0 ? `category=${selectedCategoryId}` : '';
+    const category = selectedCategoryId > 0 ? `category=${selectedCategoryId}` : '';
     const sortBy = `sortBy=${selectedSort.sortBy}&order=${selectedSort.order}`;
 
     if (searchValue) {
@@ -67,9 +53,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     if (window.location.search) {
       const urlParams = qs.parse(window.location.search.slice(1));
-      const sortObj = sortingOptions.find(
-        (item) => item.sortBy === urlParams.selectedSort,
-      );
+      const sortObj = sortingOptions.find((item) => item.sortBy === urlParams.selectedSort);
 
       if (urlParams && sortObj) {
         dispatch(
@@ -108,12 +92,7 @@ const Home: React.FC = () => {
   const arrPagination = pagination(pizzaItems, currentPage, pageSize);
 
   if (status === Status.ERROR) {
-    return (
-      <NotFoundPizzas
-        title="Произошла ошибка"
-        text="Попробуйте повторить позднее."
-      />
-    );
+    return <NotFoundPizzas title="Произошла ошибка" text="Попробуйте повторить позднее." />;
   }
 
   return (
@@ -138,16 +117,10 @@ const Home: React.FC = () => {
               <PizzaBlock key={pizza.id} {...pizza} />
             ))}
           </div>
-          <Pagination
-            pageCount={pageCount}
-            handleChangePage={handleChangePage}
-          />
+          <Pagination pageCount={pageCount} handleChangePage={handleChangePage} />
         </>
       ) : (
-        <NotFoundPizzas
-          title="Пиццы не найдены"
-          text="Попробуйте изменить запрос."
-        />
+        <NotFoundPizzas title="Пиццы не найдены" text="Попробуйте изменить запрос." />
       )}
     </>
   );
