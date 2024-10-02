@@ -1,5 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { minusItem, plusItem, removeItem } from './redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { minusItem, plusItem, removeItem, selectorCart } from './redux/slices/cartSlice';
+import { useEffect } from 'react';
 
 type CartItemProps = {
   id: number;
@@ -21,6 +22,12 @@ const CartItem: React.FC<CartItemProps> = ({
   count,
 }) => {
   const dispatch = useDispatch();
+  const { cartItems } = useSelector(selectorCart);
+
+  useEffect(() => {
+    const data = JSON.stringify(cartItems);
+    localStorage.setItem('cartItems', data);
+  }, [cartItems]);
 
   function handleRemoveItem() {
     dispatch(removeItem({ id, typePizza, size }));
@@ -88,9 +95,7 @@ const CartItem: React.FC<CartItemProps> = ({
         <b>{price * count} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div
-          className="button button--outline button--circle"
-          onClick={handleRemoveItem}>
+        <div className="button button--outline button--circle" onClick={handleRemoveItem}>
           <svg
             width="10"
             height="10"

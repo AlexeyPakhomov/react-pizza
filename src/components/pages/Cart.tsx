@@ -2,10 +2,16 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, selectorCart } from '../redux/slices/cartSlice';
 import { CartItem, CartEmpty } from '../index';
+import { useEffect } from 'react';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { cartItems, totalPrice, totalCount } = useSelector(selectorCart);
+
+  useEffect(() => {
+    const data = JSON.stringify(cartItems);
+    localStorage.setItem('cartItems', data);
+  }, [cartItems]);
 
   function handleClearCart() {
     if (window.confirm('Вы хотите удалить все пиццы из корзины?')) {
