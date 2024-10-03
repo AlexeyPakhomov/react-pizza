@@ -1,13 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 import { getCartItemsLS } from '../../../utils/getCartItemsLS';
-import {
-  calculateTotalCount,
-  calculateTotalPrice,
-} from '../../../utils/getTotalPriceCount';
+import { calculateTotalCount, calculateTotalPrice } from '../../../utils/getTotalPriceCount';
 
 export type TCartItem = {
-  id: number;
+  id: string;
   imageUrl: string;
   title: string;
   typePizza: string;
@@ -17,7 +14,7 @@ export type TCartItem = {
 };
 
 export type TChangeQuantityItem = {
-  id: number;
+  id: string;
   typePizza: string;
   size: number;
 };
@@ -39,9 +36,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItem(state, action: PayloadAction<TCartItem>) {
-      const findItem = state.cartItems.find((obj) =>
-        findItemInArr(obj, action.payload),
-      );
+      const findItem = state.cartItems.find((obj) => findItemInArr(obj, action.payload));
 
       if (findItem) {
         findItem.count++;
@@ -52,9 +47,7 @@ export const cartSlice = createSlice({
       getTotalPriceCount(state);
     },
     plusItem(state, action: PayloadAction<TChangeQuantityItem>) {
-      state.cartItems.forEach(
-        (item) => findItemInArr(item, action.payload) && item.count++,
-      );
+      state.cartItems.forEach((item) => findItemInArr(item, action.payload) && item.count++);
 
       getTotalPriceCount(state);
     },
@@ -91,16 +84,11 @@ function getTotalPriceCount(state: ICartSliceState) {
 }
 
 function findItemInArr(obj: TCartItem, payload: TChangeQuantityItem) {
-  return (
-    obj.id === payload.id &&
-    obj.size === payload.size &&
-    obj.typePizza === payload.typePizza
-  );
+  return obj.id === payload.id && obj.size === payload.size && obj.typePizza === payload.typePizza;
 }
 
 export const selectorCart = (state: RootState) => state.cart;
 
-export const { addItem, removeItem, plusItem, minusItem, clearCart } =
-  cartSlice.actions;
+export const { addItem, removeItem, plusItem, minusItem, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

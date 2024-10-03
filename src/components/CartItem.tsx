@@ -3,7 +3,7 @@ import { minusItem, plusItem, removeItem, selectorCart } from './redux/slices/ca
 import { useEffect } from 'react';
 
 type CartItemProps = {
-  id: number;
+  id: string;
   imageUrl: string;
   title: string;
   typePizza: string;

@@ -7,6 +7,7 @@ import Preloader from './components/Preloader/Preloader';
 
 const Cart = lazy(() => import('./components/pages/Cart'));
 const NotFound = lazy(() => import('./components/pages/NotFound'));
+const FullPizza = lazy(() => import('./components/pages/FullPizza/FullPizza'));
 
 function App() {
   return (
@@ -17,10 +18,18 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
-              path="/cart"
+              path="cart"
               element={
                 <Suspense fallback={<Preloader />}>
                   <Cart />
+                </Suspense>
+              }
+            />
+            <Route
+              path="pizza/:id"
+              element={
+                <Suspense fallback={<Preloader />}>
+                  <FullPizza />
                 </Suspense>
               }
             />

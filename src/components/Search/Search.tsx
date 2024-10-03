@@ -36,7 +36,7 @@ const Search: React.FC = () => {
 
   return (
     <div className={style.searchBlock}>
-      {location.pathname !== '/cart' && (
+      {location.pathname === '/' && (
         <>
           <img className={style.searchBlock__iconFind} src={searchImg} alt="search" />
           <input

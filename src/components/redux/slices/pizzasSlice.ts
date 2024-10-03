@@ -8,8 +8,8 @@ type IFetchPizzas = {
   sortBy: string;
 };
 
-type TPizzaItem = {
-  id: number;
+export type TPizzaItem = {
+  id: string;
   imageUrl: string;
   title: string;
   types: number[];
@@ -17,6 +17,7 @@ type TPizzaItem = {
   price: number;
   category: number;
   rating: number;
+  description: string;
 };
 
 interface IPizzaSliceState {
