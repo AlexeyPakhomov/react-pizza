@@ -1,9 +1,12 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './scss/app.scss';
 import { Header } from './components';
 import Home from './components/pages/Home';
-import Cart from './components/pages/Cart';
-import NotFound from './components/pages/NotFound';
+import Preloader from './components/Preloader/Preloader';
+
+const Cart = lazy(() => import('./components/pages/Cart'));
+const NotFound = lazy(() => import('./components/pages/NotFound'));
 
 function App() {
   return (
@@ -13,8 +16,22 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="/cart"
+              element={
+                <Suspense fallback={<Preloader />}>
+                  <Cart />
+                </Suspense>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<Preloader />}>
+                  <NotFound />
+                </Suspense>
+              }
+            />
           </Routes>
         </div>
       </div>
