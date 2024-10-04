@@ -19,6 +19,12 @@ body {
     width: calc(100vw - 20px);
     margin: 10px auto;
   }
+
+  .license {
+    display: block;
+    text-align: end;
+    margin-right: 10px;
+  }
 }
 
 .content {

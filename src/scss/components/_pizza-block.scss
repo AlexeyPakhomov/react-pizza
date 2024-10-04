@@ -9,9 +9,19 @@
   //  margin-right: 35px;
   //}
 
-  &__image {
+  &__imageDiv {
     width: 260px;
     height: 260px;
+    overflow: hidden;
+  }
+
+  &__image {
+    //width: 260px;
+    //height: 260px;
+    width: 305px;
+    height: 305px;
+    object-fit: cover;
+    object-position: -20px -30px;
   }
 
   &__title {

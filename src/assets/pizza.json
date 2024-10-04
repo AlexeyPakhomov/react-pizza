@@ -1,18 +1,20 @@
 [
   {
     "id": "0",
-    "imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D612FC7B7FCA5BE822752BEE1E5.avif",
+    //"imageUrl": "https://media.dodostatic.net/image/r:292x292/11EE7D612FC7B7FCA5BE822752BEE1E5.avif",
+    "imageUrl": "https://www.freepik.com/free-photo/delicious-italian-pizza-with-tomato-olives-pepperoni-mushrooms-top-view-isolated-white-background-still-life-copy-space_26651946.htm#fromView=author&page=1&position=13&uuid=568e3fd0-b924-4d88-94fd-5ec8ace878b7",
     "title": "Пепперони с перцем",
     "types": [0, 1],
     "sizes": [26, 30, 40],
     "price": 803,
     "category": 4,
     "rating": 4,
-    "description": "Моцарелла, пепперони, болгарский перец, фирменный томатный соус"
+    "description": "Помидоры, пепперони, болгарский перец, фирменный томатный соус"
   },
   {
     "id": "1",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/2ffc31bb-132c-4c99-b894-53f7107a1441.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/pizza-with-cheese-tomato-isolated-white-background-pizza-margarita-top-view-photo-menu_26651911.htm#fromView=author&page=1&position=10&uuid=d167eb81-8d63-46f3-b8c4-60b6d7dbcc8c",
     "title": "Сырная",
     "types": [0, 1],
     "sizes": [26, 40],
@@ -23,40 +25,44 @@
   },
   {
     "id": "2",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/6652fec1-04df-49d8-8744-232f1032c44b.jpg",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/6652fec1-04df-49d8-8744-232f1032c44b.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/meat-chicken-mushrooms-pizza-isolated-white-background-top-view-photo-menu_26593842.htm#fromView=author&page=1&position=12&uuid=d167eb81-8d63-46f3-b8c4-60b6d7dbcc8c",
     "title": "Цыпленок барбекю гриль",
     "types": [0, 1],
     "sizes": [26, 40],
     "price": 295,
     "category": 3,
     "rating": 4,
-    "description": "Цыпленок, соус барбекю, лук, моцарелла, фирменный томатный соус"
+    "description": "Цыпленок, соус барбекю, лук, помидоры, моцарелла, фирменный томатный соус"
   },
   {
     "id": "3",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/af553bf5-3887-4501-b88e-8f0f55229429.jpg",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/af553bf5-3887-4501-b88e-8f0f55229429.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/meat-chicken-mushrooms-pizza-isolated-white-background-top-view-photo-menu_26651927.htm#fromView=author&page=4&position=11&uuid=568e3fd0-b924-4d88-94fd-5ec8ace878b7",
     "title": "Кисло-сладкий цыпленок",
     "types": [0, 1],
     "sizes": [26, 30, 40],
     "price": 275,
     "category": 1,
     "rating": 2,
-    "description": "Цыпленок, соус кисло-сладкий, лук, моцарелла, фирменный томатный соус"
+    "description": "Цыпленок, соус кисло-сладкий, помидоры, лук, моцарелла, фирменный томатный соус"
   },
   {
     "id": "4",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg",
-    "title": "Чизбургер-пицца",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/fresh-pizza-with-mushrooms-ham-cheese-white-background-copy-space-homemade-with-love-fast-delivery-recipe-menu-top-view_26651940.htm#fromView=author&page=1&position=26&uuid=568e3fd0-b924-4d88-94fd-5ec8ace878b7",
+    "title": "Грибная с ветчиной",
     "types": [0, 1],
     "sizes": [26, 30, 40],
     "price": 415,
     "category": 1,
     "rating": 8,
-    "description": "Говядина (фарш), курица, ветчина, томатный соус, сыр моцарелла, сыр чеддер, помидоры, лук, огурцы маринованные, фирменный соус"
+    "description": "Ветчина, томатный соус, сыр моцарелла, сыр чеддер, шампиньоны, фирменный соус"
   },
   {
     "id": "5",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/1e1a6e80-b3ba-4a44-b6b9-beae5b1fbf27.jpg",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/1e1a6e80-b3ba-4a44-b6b9-beae5b1fbf27.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/thinly-sliced-pepperoni-is-popular-pizza-topping-american-style-pizzerias-isolated-white-background-still-life_26593854.htm#fromView=author&page=1&position=0&uuid=ec7c35c3-a04c-4ca6-b574-d47b6beed555",
     "title": "Тройная пепперони",
     "types": [0, 1],
     "sizes": [30, 40],
@@ -67,7 +73,8 @@
   },
   {
     "id": "6",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/d2e337e9-e07a-4199-9cc1-501cc44cb8f8.jpg",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/d2e337e9-e07a-4199-9cc1-501cc44cb8f8.jpg",
+    "imageUrl": "https://img.freepik.com/free-photo/thinly-sliced-pepperoni-is-popular-pizza-topping-american-style-pizzerias-isolated-white-background-still-life_639032-229.jpg?t=st=1727978187~exp=1727981787~hmac=73f5ae6f18477b51fe6389e39ee50b1f5078d683186ec4403506db7bfba65bef&w=1060",
     "title": "Пепперони",
     "types": [0, 1],
     "sizes": [26, 30, 40],
@@ -78,7 +85,8 @@
   },
   {
     "id": "7",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/d48003cd-902c-420d-9f28-92d9dc5f73b4.jpg",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/d48003cd-902c-420d-9f28-92d9dc5f73b4.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/pizza-with-cheese-tomato-isolated-white-background-pizza-margarita-top-view-photo-menu_26651954.htm#fromView=author&page=1&position=1&uuid=d167eb81-8d63-46f3-b8c4-60b6d7dbcc8c",
     "title": "Маргарита",
     "types": [0, 1],
     "sizes": [26, 30, 40],
@@ -89,18 +97,20 @@
   },
   {
     "id": "8",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/ec29465e-606b-4a04-a03e-da3940d37e0e.jpg",
-    "title": "Четыре вкуса",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/ec29465e-606b-4a04-a03e-da3940d37e0e.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/delicious-italian-pizza-with-tomato-olives-pepperoni-mushrooms-top-view-isolated-white-background-still-life-copy-space_26651918.htm#fromView=author&page=1&position=26&uuid=d167eb81-8d63-46f3-b8c4-60b6d7dbcc8c",
+    "title": "Микс",
     "types": [0, 1],
     "sizes": [26, 30, 40],
     "price": 395,
     "category": 5,
     "rating": 10,
-    "description": "Моцарелла, ветчина, пепперони, томаты, шампиньоны, итальянские травы, томатный соус"
+    "description": "Моцарелла, ветчина, пепперони, томаты, шампиньоны, болгарский перец, итальянские травы, томатный соус"
   },
   {
     "id": "9",
-    "imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/30367198-f3bd-44ed-9314-6f717960da07.jpg",
+    //"imageUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/30367198-f3bd-44ed-9314-6f717960da07.jpg",
+    "imageUrl": "https://www.freepik.com/free-photo/mushroom-pizza-vegetarian-white-background-isolated-still-life-copy-space-top-view-flat-lay_26651960.htm#fromView=author&page=1&position=5&uuid=d167eb81-8d63-46f3-b8c4-60b6d7dbcc8c",
     "title": "Овощи и грибы 🌱",
     "types": [0, 1],
     "sizes": [26, 30, 40],

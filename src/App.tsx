@@ -1,15 +1,21 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './scss/app.scss';
 import { Header } from './components';
 import Home from './components/pages/Home';
 import Preloader from './components/Preloader/Preloader';
 
-const Cart = lazy(() => import('./components/pages/Cart'));
-const NotFound = lazy(() => import('./components/pages/NotFound'));
-const FullPizza = lazy(() => import('./components/pages/FullPizza/FullPizza'));
+const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ './components/pages/Cart'));
+const NotFound = lazy(
+  () => import(/* webpackChunkName: "NotFound" */ './components/pages/NotFound'),
+);
+const FullPizza = lazy(
+  () => import(/* webpackChunkName: "FullPizza" */ './components/pages/FullPizza/FullPizza'),
+);
 
 function App() {
+  const location = useLocation().pathname;
+
   return (
     <div className="wrapper">
       <Header />
@@ -44,6 +50,7 @@ function App() {
           </Routes>
         </div>
       </div>
+      {location === '/' && <span className="license">Images of pizzas by Julia on Freepik</span>}
     </div>
   );
 }

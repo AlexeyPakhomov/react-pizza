@@ -18,10 +18,7 @@ const Search: React.FC = () => {
     setInputValue('');
   }, [selectedCategoryId]);
 
-  const finalChangeInput = useCallback(
-    debounce((value: string) => dispatch(setSearchValue(value)), 1000),
-    [],
-  );
+  const finalChangeInput = debounce((value: string) => dispatch(setSearchValue(value)), 1000);
 
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value);

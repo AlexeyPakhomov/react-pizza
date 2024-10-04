@@ -53,9 +53,11 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, imageUrl, title, types, siz
 
   return (
     <div className="pizza-block">
-      <Link to={`pizza/${id}`}>
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-      </Link>
+      <div className="pizza-block__imageDiv">
+        <Link to={`pizza/${id}`}>
+          <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        </Link>
+      </div>
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
@@ -83,7 +85,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, imageUrl, title, types, siz
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <div className="button button--outline button--add" onClick={() => addPizzaCart()}>
           <svg
             width="12"
             height="12"
@@ -95,7 +97,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({ id, imageUrl, title, types, siz
               fill="white"
             />
           </svg>
-          <span onClick={() => addPizzaCart()}>Добавить</span>
+          <span>Добавить</span>
 
           {totalCount > 0 && <i>{totalCount}</i>}
         </div>

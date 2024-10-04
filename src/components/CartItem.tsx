@@ -44,7 +44,7 @@ const CartItem: React.FC<CartItemProps> = ({
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <img src={imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
