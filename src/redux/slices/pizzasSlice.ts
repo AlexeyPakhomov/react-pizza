@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '../store';
-import { Status } from '../../../utils/constants';
+import { Status } from '../../utils/constants';
 
 type IFetchPizzas = {
   category: string;
@@ -32,6 +32,7 @@ export const fetchPizzas = createAsyncThunk(
     const response = await axios.get<TPizzaItem[]>(
       `https://66d6c751006bfbe2e64e8d5f.mockapi.io/items?${category}&${sortBy}`,
     );
+    localStorage.setItem('pizzas', JSON.stringify(response.data));
 
     return response.data as TPizzaItem[];
   },

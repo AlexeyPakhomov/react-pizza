@@ -1,17 +1,30 @@
 import { Link } from 'react-router-dom';
 import logoPizza from '../assets/img/pizza-logo.svg';
 import Search from './Search/Search';
-import { useSelector } from 'react-redux';
-import { selectorCart } from './redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectorCart } from '../redux/slices/cartSlice';
+import { setCategoryId, setSort } from '../redux/slices/filterSlice';
 
 const Header: React.FC = () => {
   const { totalPrice, totalCount } = useSelector(selectorCart);
+  const dispatch = useDispatch();
+
+  function removeAllFilter() {
+    dispatch(setCategoryId(0));
+    dispatch(
+      setSort({
+        title: 'Популярности',
+        sortBy: 'rating',
+        order: 'desc',
+      }),
+    );
+  }
 
   return (
     <div className="header">
       <div className="container">
         <div className="header__logo">
-          <Link to="/" className="header__logoBlock">
+          <Link to="/" onClick={removeAllFilter} className="header__logoBlock">
             <img width="38" src={logoPizza} alt="Pizza logo" />
           </Link>
           <div>

@@ -5,7 +5,7 @@ import searchImg from '../../assets/img/search_icon.svg';
 import removeIcon from '../../assets/img/remove_icon.svg';
 import debounce from 'lodash.debounce';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectorFilter, setSearchValue } from '../redux/slices/filterSlice';
+import { selectorFilter, setSearchValue } from '../../redux/slices/filterSlice';
 
 const Search: React.FC = () => {
   const location = useLocation();

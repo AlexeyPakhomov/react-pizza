@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectorFilter, setSort } from './redux/slices/filterSlice';
+import { selectorFilter, setSort } from '../redux/slices/filterSlice';
 import { TSortItem, sortingOptions } from '../utils/constants';
 
 const Sort: React.FC = React.memo(() => {
@@ -51,9 +51,7 @@ const Sort: React.FC = React.memo(() => {
               <li
                 key={i}
                 onClick={() => handleChangeSort(objItem)}
-                className={
-                  objItem.title === selectedSort.title ? 'active' : ''
-                }>
+                className={objItem.title === selectedSort.title ? 'active' : ''}>
                 {objItem.title}
               </li>
             ))}

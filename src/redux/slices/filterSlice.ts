@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { TSortItem } from '../../../utils/constants';
+import { TSortItem } from '../../utils/constants';
 
 type TSelectSort = {
   title: string;
@@ -62,12 +62,7 @@ function updateCurrentPage(state: IFilterSliceState) {
 
 export const selectorFilter = (state: RootState) => state.filter;
 
-export const {
-  setCategoryId,
-  setSort,
-  setSearchValue,
-  setCurrentPage,
-  setFilter,
-} = filterSlice.actions;
+export const { setCategoryId, setSort, setSearchValue, setCurrentPage, setFilter } =
+  filterSlice.actions;
 
 export default filterSlice.reducer;

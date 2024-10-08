@@ -1,4 +1,4 @@
-import NotFoundPages from '../NotFoundPages/NotFoundPages';
+import NotFoundPages from '../components/NotFoundPages/NotFoundPages';
 
 const NotFound: React.FC = () => {
   return (

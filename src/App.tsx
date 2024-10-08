@@ -2,15 +2,13 @@ import { lazy, Suspense } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import './scss/app.scss';
 import { Header } from './components';
-import Home from './components/pages/Home';
+import Home from './pages/Home';
 import Preloader from './components/Preloader/Preloader';
 
-const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ './components/pages/Cart'));
-const NotFound = lazy(
-  () => import(/* webpackChunkName: "NotFound" */ './components/pages/NotFound'),
-);
+const Cart = lazy(() => import(/* webpackChunkName: "Cart" */ './pages/Cart'));
+const NotFound = lazy(() => import(/* webpackChunkName: "NotFound" */ './pages/NotFound'));
 const FullPizza = lazy(
-  () => import(/* webpackChunkName: "FullPizza" */ './components/pages/FullPizza/FullPizza'),
+  () => import(/* webpackChunkName: "FullPizza" */ './pages/FullPizza/FullPizza'),
 );
 
 function App() {

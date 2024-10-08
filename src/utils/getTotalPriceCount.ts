@@ -1,4 +1,4 @@
-import { TCartItem } from '../components/redux/slices/cartSlice';
+import { TCartItem } from '../redux/slices/cartSlice';
 
 export const calculateTotalCount = (data: TCartItem[]) =>
   data.reduce((sum, item) => sum + item.count, 0);

@@ -2,12 +2,20 @@ import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import qs from 'qs';
-import { sortingOptions, Status } from '../../utils/constants';
-import useResize from '../../hooks/useResize';
-import { Skeleton, PizzaBlock, NotFoundPizzas, Categories, Sort, Pagination } from '../index';
+import { sortingOptions, Status } from '../utils/constants';
+import useResize from '../hooks/useResize';
+import {
+  Skeleton,
+  PizzaBlock,
+  NotFoundPizzas,
+  Categories,
+  Sort,
+  Pagination,
+} from '../components/index';
 import { useAppDispatch } from '../redux/store';
 import { selectorFilter, setCurrentPage, setFilter } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectorPizzas, setPizzas } from '../redux/slices/pizzasSlice';
+import { sortSearchValue } from '../utils/sortSearchValue';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -26,10 +34,15 @@ const Home: React.FC = () => {
     const sortBy = `sortBy=${selectedSort.sortBy}&order=${selectedSort.order}`;
 
     if (searchValue) {
-      const pizzasSearch = pizzaItems.filter((pizza: any) =>
+      const pizzasJSON = localStorage.getItem('pizzas');
+      const pizzas = pizzasJSON === null ? [] : JSON.parse(pizzasJSON);
+
+      const pizzasSearch = pizzas.filter((pizza: any) =>
         pizza.title.toLowerCase().includes(searchValue.toLowerCase()),
       );
+      sortSearchValue(pizzasSearch, selectedSort.sortBy, selectedSort.order);
       dispatch(setPizzas(pizzasSearch));
+
       dispatch(setCurrentPage(1));
     } else {
       dispatch(fetchPizzas({ category, sortBy }));

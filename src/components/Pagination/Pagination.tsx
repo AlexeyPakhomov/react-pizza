@@ -1,6 +1,6 @@
 import style from './Pagination.module.scss';
 import { useSelector } from 'react-redux';
-import { selectorFilter } from '../redux/slices/filterSlice';
+import { selectorFilter } from '../../redux/slices/filterSlice';
 
 type PaginationProps = {
   pageCount: number;

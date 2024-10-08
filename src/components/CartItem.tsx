@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { minusItem, plusItem, removeItem, selectorCart } from './redux/slices/cartSlice';
+import { minusItem, plusItem, removeItem, selectorCart } from '../redux/slices/cartSlice';
 import { useEffect } from 'react';
 
 type CartItemProps = {

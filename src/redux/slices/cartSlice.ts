@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { getCartItemsLS } from '../../../utils/getCartItemsLS';
-import { calculateTotalCount, calculateTotalPrice } from '../../../utils/getTotalPriceCount';
+import { getCartItemsLS } from '../../utils/getCartItemsLS';
+import { calculateTotalCount, calculateTotalPrice } from '../../utils/getTotalPriceCount';
 
 export type TCartItem = {
   id: string;
