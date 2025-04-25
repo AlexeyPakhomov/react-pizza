@@ -9,4 +9,4 @@
 
 ### Ссылка на проект
 
-https://reactpizza.pakhomov.site/
+https://reactpizza.rizhovcode.ru/
